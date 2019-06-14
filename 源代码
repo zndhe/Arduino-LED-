@@ -1,0 +1,33 @@
+// 按键控制LED灯开关，使用内部上拉电阻；
+const int LED = 7;
+const int BUTTON = 13;
+boolean state = false;//声明led灯的状态，默认是关的；
+
+boolean get_touch(){
+  boolean touch_stat=0;
+  touch_stat=digitalRead(BUTTON);//读入状态
+  return touch_stat;
+}
+
+void setup()
+{
+  pinMode(LED,OUTPUT);
+  pinMode(BUTTON,INPUT);//按钮接内部上拉电阻；
+}
+void loop()
+{
+  boolean touch_stat;
+  
+  touch_stat=get_touch();
+
+  if(touch_stat)//判断：如果灯的状态是亮，则熄灭它，然后将状态
+  {
+     state = !state;//标记灯的当前状态
+     digitalWrite(LED,LOW); 
+  }
+  else
+  {
+    digitalWrite(LED,HIGH);
+    state = !state;//标记灯的当前状态
+  }
+  
